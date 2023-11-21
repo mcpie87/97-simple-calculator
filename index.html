@@ -32,7 +32,9 @@ calc = () => {
     const attempt_cost = rock_cost + pheons_required*pheon_cost;
     const n = gold / attempt_cost;
     if (n<1) {
-        console.log("too poorge");
+        output = "too poorge";
+        console.log(output);
+        document.getElementById("output").innerText = output;
         return;
     }
     let sum = 0;
