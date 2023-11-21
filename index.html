@@ -1,0 +1,46 @@
+<div>
+    <label>blue crystal cost</label>
+    <input type="number" value="3050" id="bc_cost">
+</div>
+<div>
+    <label>rock cost (raw gold)</label>
+    <input type="number" value="2000" id="rock_cost">
+</div>
+<div>
+    <label>gold to spend</label>
+    <input type="number" id="gold" value="1500000">
+</div>
+<div>
+    <label>chance of success (decimal, eg. 7% = 0.07)</label>
+    <input type="number" id="p" value="0.001">
+</div>
+<button class="button" id="increment" onclick="calc()">calculate</button>
+
+<div id="output">
+
+</div>
+<script>
+calc = () => {
+    const bc_cost = +document.getElementById("bc_cost").value;
+    const rock_cost = +document.getElementById("rock_cost").value;
+    const gold = +document.getElementById("gold").value;
+    const p = +document.getElementById("p").value;
+    // const bc_cost = 3050;
+    const pheon_cost = (850 / 95) * bc_cost / 100;
+    const pheons_required = 9;
+    // const rock_cost = 2000;
+    const attempt_cost = rock_cost + pheons_required*pheon_cost;
+    const n = gold / attempt_cost;
+    if (n<1) {
+        console.log("too poorge");
+        return;
+    }
+    let sum = 0;
+    for (let i=1; i<=n; ++i) {
+        sum += p*((1-p)**(i-1));
+    }
+    output = `Attempt cost ${attempt_cost}\nProbability ${p}\nTrials ${n}\nChances of obtaining ${sum}`;
+    console.log(output)
+    document.getElementById("output").innerText = output;
+}
+</script>
